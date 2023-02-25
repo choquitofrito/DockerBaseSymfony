@@ -1,22 +1,3 @@
-<VirtualHost *:80>
-    ServerName localhost
-
-    DocumentRoot /var/www/public
-    DirectoryIndex /index.php
-
-    <Directory /var/www/public>
-        AllowOverride None
-        Order Allow,Deny
-        Allow from All
-
-        FallbackResource /index.php
-    </Directory>
-
-    ErrorLog /var/log/apache2/project_error.log
-    CustomLog /var/log/apache2/project_access.log combined
-
-</VirtualHost>
-
 <VirtualHost *:443>
     ServerName localhost
 
@@ -33,8 +14,6 @@
     SSLEngine on
     SSLCertificateFile /etc/ssl/certs/apache-selfsigned.crt
     SSLCertificateKeyFile /etc/ssl/private/apache-selfsigned.key
-
-
 
     ErrorLog /var/log/apache2/project_error.log
     CustomLog /var/log/apache2/project_access.log combined

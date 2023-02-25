@@ -10,10 +10,18 @@ RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo
 # RUN sed -i '/SSLCertificateFile.*snakeoil\.pem/c\SSLCertificateFile \/etc\/ssl\/certs\/mycert.crt' /etc/apache2/sites-available/default-ssl.conf
 #RUN sed -i '/SSLCertificateKeyFile.*snakeoil\.key/cSSLCertificateKeyFile /etc/ssl/private/mycert.key\' /etc/apache2/sites-available/default-ssl.conf
 
-COPY ./docker/apache-selfsigned.cert /etc/ssl/certs/apache-selfsigned.crt
+COPY ./docker/*.crt /etc/ssl/certs/
+COPY ./docker/*.key /etc/ssl/private/
+
+# COPY ./docker/symfony-ssl.conf /etc/apache2/sites-enabled/symfony-ssl.conf
+
+COPY ./docker/apache-selfsigned.crt /etc/ssl/certs/apache-selfsigned.crt
+COPY ./docker/apache-selfsigned.key /etc/ssl/private/apache-selfsigned.key
+
 
 RUN a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb
-RUN a2ensite default-ssl
+#RUN a2ensite default-ssl
+#RUN a2ensite symfony-ssl
 
 RUN apt-get update && apt-get upgrade -y
 
