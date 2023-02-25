@@ -16,9 +16,6 @@ services:
       - "443:443"
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER:-symfony}:${POSTGRES_PASSWORD:-ChangeMe}@database:5432/${POSTGRES_DB:-app}
-    volumes:
-      - ./mycert.crt:/etc/ssl/certs/mycert.crt
-      - ./mycert.key:/etc/ssl/private/mycert.key
 
 volumes:
   db-data:
