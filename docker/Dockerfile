@@ -7,12 +7,15 @@ RUN chmod +x /usr/local/bin/install-php-extensions && \
 
 RUN apt-get update && apt-get install -y libpq-dev && docker-php-ext-install pdo pdo_pgsql pgsql
 
-RUN sed -i '/SSLCertificateFile.*snakeoil\.pem/c\SSLCertificateFile \/etc\/ssl\/certs\/mycert.crt' /etc/apache2/sites-available/default-ssl.conf
-RUN sed -i '/SSLCertificateKeyFile.*snakeoil\.key/cSSLCertificateKeyFile /etc/ssl/private/mycert.key\' /etc/apache2/sites-available/default-ssl.conf
+# RUN sed -i '/SSLCertificateFile.*snakeoil\.pem/c\SSLCertificateFile \/etc\/ssl\/certs\/mycert.crt' /etc/apache2/sites-available/default-ssl.conf
+#RUN sed -i '/SSLCertificateKeyFile.*snakeoil\.key/cSSLCertificateKeyFile /etc/ssl/private/mycert.key\' /etc/apache2/sites-available/default-ssl.conf
+
+COPY /etc/ssl/certs/mycert.crt /etc/ssl/certs/mycert.crt
+COPY ./docker/default-ssl.conf /etc/apache2/sites-available
 
 RUN a2enmod rewrite && a2enmod ssl && a2enmod socache_shmcb
-
 RUN a2ensite default-ssl
+
 RUN apt-get update && apt-get upgrade -y
 
 

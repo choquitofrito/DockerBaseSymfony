@@ -10,7 +10,7 @@ services:
     volumes:
       - db-data:/var/lib/postgresql/data:rw
   app:
-    image: yoanbernabeu/cronify:latest
+    image: franleal/dockerbasesymfonyimagetest
     ports:
       - "80:80"
       - "443:443"
